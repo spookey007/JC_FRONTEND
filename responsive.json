@@ -1,0 +1,137 @@
+{
+    "responsive_sizes": [
+      {
+        "category": "Tiny Mobile",
+        "description": "Legacy phones, small foldables (inner screen)",
+        "width_range": "280px - 319px",
+        "common_devices": ["Galaxy Fold (inner)", "Old Android Mini phones"],
+        "breakpoint": 280
+      },
+      {
+        "category": "Extra Small Mobile",
+        "description": "Very small smartphones",
+        "width_range": "320px - 359px",
+        "common_devices": ["iPhone SE 1st Gen", "Moto E"],
+        "breakpoint": 320
+      },
+      {
+        "category": "Small Mobile",
+        "description": "Small modern smartphones",
+        "width_range": "360px - 399px",
+        "common_devices": ["Pixel 4a", "Galaxy S10e", "iPhone 12 Mini"],
+        "breakpoint": 360
+      },
+      {
+        "category": "Medium Mobile",
+        "description": "Average smartphone width (most common)",
+        "width_range": "400px - 479px",
+        "common_devices": ["iPhone 13/14", "Pixel 7", "Galaxy S21"],
+        "breakpoint": 414
+      },
+      {
+        "category": "Large Mobile / Phablet",
+        "description": "Large phones and foldables (outer screens)",
+        "width_range": "480px - 599px",
+        "common_devices": ["Galaxy Note series", "Foldables (open)"],
+        "breakpoint": 480
+      },
+      {
+        "category": "Small Tablet / Foldable Tablet Mode",
+        "description": "Mini tablets and large phones in landscape",
+        "width_range": "600px - 719px",
+        "common_devices": ["Galaxy Tab Mini", "iPad Mini (portrait)"],
+        "breakpoint": 600
+      },
+      {
+        "category": "Tablet (Portrait)",
+        "description": "Standard portrait tablet mode",
+        "width_range": "720px - 839px",
+        "common_devices": ["iPad 9.7", "Surface Go"],
+        "breakpoint": 768
+      },
+      {
+        "category": "Tablet (Landscape) / Small Laptop",
+        "description": "Tablets in landscape or small Chromebooks",
+        "width_range": "840px - 1023px",
+        "common_devices": ["iPad Pro 11-inch", "Surface Duo (open)"],
+        "breakpoint": 900
+      },
+      {
+        "category": "Laptop / Small Desktop",
+        "description": "Small laptops and wide tablets",
+        "width_range": "1024px - 1279px",
+        "common_devices": ["MacBook Air 13-inch", "Surface Laptop"],
+        "breakpoint": 1024
+      },
+      {
+        "category": "Desktop (HD Ready)",
+        "description": "Mid-size monitors and laptops",
+        "width_range": "1280px - 1359px",
+        "common_devices": ["1080p displays (scaled)", "14–15 inch laptops"],
+        "breakpoint": 1280
+      },
+      {
+        "category": "Desktop (Standard Full HD)",
+        "description": "Mainstream desktops and monitors",
+        "width_range": "1360px - 1439px",
+        "common_devices": ["1080p (1920x1080 scaled)", "15–17 inch laptops"],
+        "breakpoint": 1366
+      },
+      {
+        "category": "Large Desktop / HD+",
+        "description": "Wider HD and small 2K monitors",
+        "width_range": "1440px - 1599px",
+        "common_devices": ["QHD displays", "iMac 21-inch"],
+        "breakpoint": 1440
+      },
+      {
+        "category": "WQHD / 2K Display",
+        "description": "Professional and gaming monitors",
+        "width_range": "1600px - 1919px",
+        "common_devices": ["2K Monitors", "MacBook Pro 16-inch"],
+        "breakpoint": 1600
+      },
+      {
+        "category": "Full HD / Wide 1080p",
+        "description": "Common Full HD monitors",
+        "width_range": "1920px - 2039px",
+        "common_devices": ["1080p 24-inch", "iMac 24-inch"],
+        "breakpoint": 1920
+      },
+      {
+        "category": "WQHD+ / Ultra-Wide",
+        "description": "Ultra-wide monitors (21:9 ratio)",
+        "width_range": "2040px - 2559px",
+        "common_devices": ["UltraWide 29-34 inch monitors"],
+        "breakpoint": 2160
+      },
+      {
+        "category": "4K UHD",
+        "description": "High-end 4K resolution displays",
+        "width_range": "2560px - 3839px",
+        "common_devices": ["4K TVs", "32–40 inch monitors"],
+        "breakpoint": 2560
+      },
+      {
+        "category": "5K / 6K Retina",
+        "description": "Apple Retina and advanced workstation displays",
+        "width_range": "3840px - 5119px",
+        "common_devices": ["iMac 27-inch 5K", "Mac Studio Display"],
+        "breakpoint": 3840
+      },
+      {
+        "category": "8K / Super Ultra-Wide",
+        "description": "Ultra high-end or multi-display setups",
+        "width_range": "5120px and above",
+        "common_devices": ["8K monitors", "Super Ultrawide 49-inch"],
+        "breakpoint": 5120
+      }
+    ],
+    "height_references": {
+      "small_height": "<= 600px (phones landscape)",
+      "medium_height": "601px - 900px (most devices portrait)",
+      "large_height": "901px - 1200px (tablets/laptops)",
+      "extra_large_height": ">= 1201px (large desktops or 4K monitors)"
+    }
+  }
+  

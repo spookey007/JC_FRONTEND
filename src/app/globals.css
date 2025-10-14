@@ -1,0 +1,1022 @@
+@import "tailwindcss";
+@import "../styles/sega.css";
+@import '@fortawesome/fontawesome-free/css/all.css';
+
+/* Global zoom prevention for mobile devices */
+@media (max-width: 768px) {
+  html {
+    touch-action: manipulation;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  
+  body {
+    touch-action: manipulation;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+}
+
+/* Mobile optimizations for chat widget */
+@media (max-width: 768px) {
+  /* Disable zoom completely */
+  * {
+    touch-action: manipulation;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+  
+  /* Allow text selection in input fields and prevent iOS zoom */
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  input[type="search"],
+  input[type="tel"],
+  input[type="url"],
+  textarea,
+  select {
+    font-size: 16px !important; /* Prevent iOS zoom - must be 16px or larger */
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
+    user-select: text;
+    -webkit-appearance: none;
+    appearance: none;
+    border-radius: 0;
+  }
+  
+  /* Specific fix for chat input on iOS */
+  .chat-input textarea {
+    font-size: 16px !important;
+    transform: translateZ(0); /* Force hardware acceleration */
+    -webkit-transform: translateZ(0);
+  }
+  
+  /* Prevent zoom on focus for all input elements */
+  input:focus,
+  textarea:focus,
+  select:focus {
+    font-size: 16px !important;
+    transform: scale(1) !important;
+    -webkit-transform: scale(1) !important;
+  }
+  
+  /* iPhone 14 Pro Max specific fixes */
+  @media only screen 
+    and (device-width: 430px) 
+    and (device-height: 932px) 
+    and (-webkit-device-pixel-ratio: 3) {
+    
+    /* Ensure chat input doesn't zoom */
+    .chat-input textarea {
+      font-size: 16px !important;
+      -webkit-text-size-adjust: 100%;
+      -webkit-appearance: none;
+      appearance: none;
+      border-radius: 0;
+    }
+    
+    /* Fix send button positioning */
+    .chat-input .send-button {
+      position: relative !important;
+      z-index: 10 !important;
+      flex-shrink: 0 !important;
+    }
+    
+    /* Prevent viewport zoom on input focus */
+    body {
+      -webkit-text-size-adjust: 100%;
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      -khtml-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+  }
+  
+  /* General iOS Safari fixes */
+  @media screen and (-webkit-min-device-pixel-ratio: 0) {
+    /* Prevent zoom on input focus */
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    input[type="search"],
+    input[type="tel"],
+    input[type="url"],
+    textarea,
+    select {
+      font-size: 16px !important;
+      -webkit-text-size-adjust: 100%;
+    }
+    
+  /* Fix for chat widget on iOS */
+  .chat-widget {
+    -webkit-overflow-scrolling: touch;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    position: fixed !important;
+    z-index: 1000 !important;
+  }
+  
+  /* Responsive chat widget */
+  @media (max-width: 640px) {
+    .chat-widget {
+      width: 100vw !important;
+      height: 100vh !important;
+      top: 0 !important;
+      left: 0 !important;
+      right: 0 !important;
+      bottom: 0 !important;
+    }
+    
+    /* Mobile message bubbles */
+    .message-bubble {
+      max-width: calc(100vw - 4rem) !important;
+    }
+    
+    /* Mobile input area */
+    .message-input-container {
+      padding: 0.5rem !important;
+    }
+  }
+  
+  @media (min-width: 641px) and (max-width: 768px) {
+    .chat-widget {
+      width: calc(100vw - 2rem) !important;
+      height: calc(100vh - 2rem) !important;
+      top: 1rem !important;
+      left: 1rem !important;
+      right: 1rem !important;
+      bottom: 1rem !important;
+    }
+  }
+  
+  /* Tablet and desktop responsive improvements */
+  @media (min-width: 769px) {
+    .chat-widget {
+      max-width: 90vw !important;
+      max-height: 90vh !important;
+    }
+  }
+  
+  /* Large desktop screens */
+  @media (min-width: 1440px) {
+    .chat-widget {
+      max-width: 1200px !important;
+      max-height: 800px !important;
+    }
+  }
+    
+    /* Ensure message input container is stable */
+    .message-input-container {
+      position: relative !important;
+      z-index: 10 !important;
+      -webkit-transform: translateZ(0);
+      transform: translateZ(0);
+    }
+  }
+  
+  /* Prevent double-tap zoom */
+  * {
+    touch-action: manipulation;
+  }
+  
+  /* Disable pinch zoom */
+  html, body {
+    touch-action: pan-x pan-y;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  
+  /* Smooth scrolling */
+  .overflow-y-auto {
+    -webkit-overflow-scrolling: touch;
+    overflow-x: hidden !important;
+    scroll-behavior: smooth;
+  }
+  
+  /* Message list specific scrolling */
+  [data-message-list] {
+    overflow-x: hidden !important;
+    height: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+  }
+  
+  [data-message-list] .overflow-y-auto {
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+    flex: 1 !important;
+    min-height: 0 !important;
+  }
+  
+  /* Better button feedback */
+  button:active {
+    transform: scale(0.98);
+  }
+  
+  /* Prevent text selection on buttons */
+  button {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-touch-callout: none;
+  }
+  
+  /* Additional zoom prevention */
+  .chat-widget {
+    touch-action: manipulation;
+    -webkit-touch-callout: none;
+  }
+  
+  /* Prevent zoom on double tap */
+  .chat-widget * {
+    touch-action: manipulation;
+  }
+  
+  /* Optimize modal animations */
+  .modal-enter {
+    animation: modalEnter 0.2s ease-out;
+  }
+  
+  .modal-exit {
+    animation: modalExit 0.15s ease-in;
+  }
+  
+  @keyframes modalEnter {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  
+  @keyframes modalExit {
+    from {
+      opacity: 1;
+      transform: scale(1);
+    }
+    to {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+  }
+  
+  /* Enhanced mobile chat experience */
+  /* .chat-widget {
+    height: 100vh;
+    height: 100dvh;
+  } */
+  
+  /* Better spacing for mobile */
+  .mobile-padding {
+    padding: 1rem;
+  }
+  
+  /* Improved button sizes for mobile */
+  .mobile-button {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  /* Better text sizing for mobile */
+  .mobile-text {
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  
+  /* Smooth transitions */
+  .smooth-transition {
+    transition: all 0.2s ease-in-out;
+  }
+  
+  /* Fix mobile cropping issues */
+  .lisa-window {
+    max-width: 100% !important;
+    overflow-x: hidden !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  
+  .lisa-content {
+    max-width: 100% !important;
+    overflow-x: hidden !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  
+  /* Ensure text wraps properly on mobile */
+  .lisa-content p,
+  .lisa-content h1,
+  .lisa-content h2,
+  .lisa-content h3 {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+  }
+  
+  /* Force all containers to respect mobile width */
+  .home-container {
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow-x: hidden !important;
+    box-sizing: border-box !important;
+  }
+  
+  .home-container * {
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  
+  /* Ensure body and html don't cause overflow */
+  body {
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow-x: hidden !important;
+    box-sizing: border-box !important;
+  }
+  
+  html {
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow-x: hidden !important;
+    box-sizing: border-box !important;
+  }
+  
+  /* Custom radial gradient for vintage loader */
+  .bg-gradient-radial {
+    background: radial-gradient(circle, var(--tw-gradient-stops));
+  }
+  
+  /* Loader screen mobile optimizations */
+  .loader-container {
+    height: 100vh;
+    height: 100dvh;
+    overflow: hidden;
+  }
+  
+  .loader-content {
+    max-height: 100%;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  /* Prevent zoom on loader screen */
+  .loader-container * {
+    touch-action: manipulation;
+    -webkit-touch-callout: none;
+  }
+  
+  /* Home page mobile optimizations */
+  .home-container {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+  
+  /* Prevent zoom on home page elements */
+  .home-container * {
+    touch-action: manipulation;
+    -webkit-touch-callout: none;
+  }
+  
+  /* Fix text scaling on mobile */
+  .home-container h1,
+  .home-container h2,
+  .home-container h3,
+  .home-container p {
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+  
+  /* Ensure proper scaling of images and videos */
+  .home-container img,
+  .home-container video {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  /* Fix button scaling */
+  .home-container button {
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+  }
+  
+  /* Additional mobile viewport fixes */
+  .home-container {
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+  
+  /* Fix any potential overflow issues */
+  .home-container .lisa-window {
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+  
+  /* Ensure proper scaling of flex containers */
+  .home-container .flex {
+    min-width: 0;
+  }
+  
+  /* Fix body mobile viewport issues */
+  body {
+    height: 100vh;
+    height: 100dvh;
+    overflow-x: hidden;
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+  
+  /* Ensure proper mobile viewport handling */
+  html {
+    height: 100vh;
+    height: 100dvh;
+  }
+}
+
+/* @font-face {
+  font-family: 'LisaStyle';
+  src: url('data:font/woff2;base64,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') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+} */
+
+:root {
+  --background: #000000;
+  --foreground: #000000;
+  --accent: #0000ff;
+  --border: #808080;
+  --highlight: #a0a0a0;
+  --menu-background: #f0f0f0;
+  --active-menu: #0000ff;
+  --font-primary: system-ui, -apple-system, sans-serif;
+  --font-title: system-ui, -apple-system, sans-serif;
+  --font-body: system-ui, -apple-system, sans-serif;
+  --grid-size: 8px;
+  --border-width: 2px;
+  --shadow-depth: 1;
+  --line-height: 1.6;
+  --padding-unit: 8px;
+  --vintage-shadow: 3px 3px 0 rgba(0, 0, 0, 0.1);
+  --modern-vintage-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+/* Keyframes for animations */
+@keyframes bounce-slow {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes pulse-slow {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.8; transform: scale(1.1); }
+}
+
+/* Animation classes */
+.animate-bounce-slow {
+  animation: bounce-slow 3s ease-in-out infinite;
+}
+
+.animate-pulse {
+  animation: pulse-slow 2s ease-in-out infinite;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-primary);
+  line-height: var(--line-height);
+  cursor: url('data:image/svg+xml;base64,PHN2ZyBpZD0iYSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iMTEiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAxMSAyNCI+PGcgaWQ9ImIiPjxwb2x5bGluZSBjbGFzcz0iYyIgZmlsbD0id2hpdGUiIHBvaW50cz0iMCAwIDAgMjEgMSAyMSAxIDE5LjUgMiAxOS41IDIgMTggMyAxOCAzIDE2LjUgNCAxNi41IDQgMTkuNSA1IDE5LjUgNSAyMi41IDYgMjIuNSA2IDI0IDkgMjQgOSAxOS41IDggMTkuNSA4IDE2LjUgNyAxNi41IDcgMTUgMTEgMTUgMTEgMTMuNSAxMCAxMy41IDEwIDEyIDkgMTIgOSAxMC41IDggMTAuNSA4IDkgNyA5IDcgNy41IDYgNy41IDYgNiA1IDYgNSA0LjUgNCA0LjUgNCAzIDMgMyAzIDEuNSAyIDEuNSAyIDAiLz48cG9seWxpbmUgcG9pbnRzPSIyIDEuNSAxIDEuNSAxIDE4IDIgMTggMiAxNi41IDMgMTYuNSAzIDE1IDQgMTUgNCAxNi41IDUgMTYuNSA1IDE5LjUgNiAxOS41IDYgMjIuNSA4IDIyLjUgOCAxOS41IDcgMTkuNSA3IDE2LjUgNiAxNi41IDYgMTMuNSA5IDEzLjUgOSAxMiA4IDEyIDggMTAuNSA3IDEwLjUgNyA5IDYgOSA2IDcuNSA1IDcuNSA1IDYgNCA2IDQgNC41IDMgNC41IDMgMyAyIDMiLz48L2c+PC9zdmc+'), auto;
+}
+
+* {
+  font-family: var(--font-primary);
+  box-sizing: border-box;
+}
+
+.border-lisa {
+  border: var(--border-width) solid var(--border);
+}
+
+.rounded-lisa {
+  border-radius: 4px;
+}
+
+.shadow-lisa {
+  box-shadow: 2px 2px 0 var(--border);
+}
+
+.vintage-container {
+  border: 2px solid var(--border);
+  background: var(--background);
+  border-radius: 4px;
+  box-shadow: var(--vintage-shadow);
+  padding: var(--padding-unit);
+  margin-bottom: var(--grid-size);
+  background-image: repeating-linear-gradient(
+    45deg,
+    transparent,
+    transparent 5px,
+    rgba(128, 128, 128, 0.05) 5px,
+    rgba(128, 128, 128, 0.05) 10px
+  );
+}
+
+.modern-vintage-card {
+  border: 2px solid var(--border);
+  background: var(--background);
+  border-radius: 8px;
+  padding: calc(var(--padding-unit) * 1.5);
+  margin-bottom: calc(var(--grid-size) * 1.5);
+  box-shadow: 5px 5px 0 rgba(0, 0, 0, 0.05);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.modern-vintage-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.1);
+}
+
+.modern-vintage-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--modern-vintage-gradient);
+}
+
+/* Lisa/Mac OS Classic UI with Modern Touches */
+.lisa-window {
+  background: #f0f0f0;
+  /* border: 2px solid #000;
+  border-radius: 8px; */
+  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.3), 8px 8px 16px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.lisa-titlebar {
+  background: linear-gradient(180deg, #c0c0c0 0%, #a0a0a0 100%);
+  border-bottom: 2px solid #000;
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+}
+
+.lisa-titlebar::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: #fff;
+  opacity: 0.5;
+}
+
+.lisa-title {
+  font-weight: 700;
+  font-size: 14px;
+  color: #000;
+  text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.5);
+  letter-spacing: 0.5px;
+}
+
+.lisa-controls {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.lisa-close, .lisa-minimize, .lisa-maximize {
+  width: 16px;
+  height: 16px;
+  border: 2px solid #000;
+  border-radius: 50%;
+  background: #ff6b6b;
+  position: relative;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.lisa-close:hover { background: #ff5252; transform: scale(1.1); }
+.lisa-minimize { background: #ffd93d; }
+.lisa-minimize:hover { background: #ffcc02; transform: scale(1.1); }
+.lisa-maximize { background: #6bcf7f; }
+.lisa-maximize:hover { background: #4caf50; transform: scale(1.1); }
+
+.lisa-content {
+  padding: 16px;
+  background: #f0f0f0;
+  min-height: 200px;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow-x: hidden;
+}
+
+.lisa-button {
+  background: linear-gradient(180deg, #e0e0e0 0%, #c0c0c0 100%);
+  border: 2px solid #000;
+  border-radius: 4px;
+  padding: 8px 16px;
+  font-weight: 700;
+  font-size: 12px;
+  color: #000;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.3);
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.lisa-button:hover {
+  background: linear-gradient(180deg, #f0f0f0 0%, #d0d0d0 100%);
+  transform: translateY(-1px);
+  box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.3);
+}
+
+.lisa-button:active {
+  transform: translateY(1px);
+  box-shadow: 1px 1px 0 rgba(0, 0, 0, 0.3);
+}
+
+.lisa-button-primary {
+  background: linear-gradient(180deg, #4a90e2 0%, #357abd 100%);
+  color: #fff;
+  text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.3);
+}
+
+.lisa-button-primary:hover {
+  background: linear-gradient(180deg, #5ba0f2 0%, #4a90e2 100%);
+}
+
+.lisa-card {
+  background: #f8f8f8;
+  border: 2px solid #000;
+  border-radius: 6px;
+  padding: 12px;
+  box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+.lisa-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.2);
+}
+
+.lisa-tabs {
+  display: flex;
+  gap: 2px;
+  margin-bottom: 16px;
+  border-bottom: 2px solid #000;
+}
+
+.lisa-tab {
+  background: linear-gradient(180deg, #d0d0d0 0%, #b0b0b0 100%);
+  border: 2px solid #000;
+  border-bottom: none;
+  border-radius: 6px 6px 0 0;
+  padding: 8px 16px;
+  font-weight: 700;
+  font-size: 12px;
+  color: #000;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.2s ease;
+}
+
+.lisa-tab.active {
+  background: linear-gradient(180deg, #f0f0f0 0%, #e0e0e0 100%);
+  z-index: 1;
+  margin-bottom: -2px;
+}
+
+.lisa-tab:hover:not(.active) {
+  background: linear-gradient(180deg, #e0e0e0 0%, #c0c0c0 100%);
+}
+
+/* Modern touches */
+.lisa-window {
+  backdrop-filter: blur(10px);
+  background: rgba(240, 240, 240, 0.95);
+}
+
+.lisa-content {
+  background: rgba(248, 248, 248, 0.8);
+}
+
+.lisa-card {
+  background: rgba(248, 248, 248, 0.9);
+  backdrop-filter: blur(5px);
+}
+
+/* Grid improvements */
+.lisa-grid {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+
+@media (min-width: 768px) {
+  .lisa-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .lisa-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.window {
+  border: 2px solid var(--border);
+  background: var(--background);
+  border-radius: 4px;
+  box-shadow: 3px 3px 0 var(--border);
+  padding: var(--padding-unit);
+  margin-bottom: var(--grid-size);
+}
+
+.window-header {
+  background: var(--menu-background);
+  padding: calc(var(--padding-unit) / 2);
+  border-bottom: 2px solid var(--border);
+  margin-bottom: var(--padding-unit);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.window-title {
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+.button-lisa {
+  border: 2px solid var(--border);
+  background: var(--background);
+  padding: calc(var(--padding-unit) / 2) var(--padding-unit);
+  border-radius: 2px;
+  font-family: var(--font-primary);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.button-lisa:hover {
+  background: var(--menu-background);
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.button-lisa:active {
+  transform: translate(1px, 1px);
+  box-shadow: 1px 1px 0 var(--border);
+}
+
+.button-lisa-primary {
+  background: var(--accent);
+  color: white;
+  font-weight: bold;
+  border-color: #0000cc;
+  box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.2);
+}
+
+.button-lisa-primary:hover {
+  background: #0000cc;
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.grid-container {
+  display: grid;
+  gap: var(--grid-size);
+}
+
+@media (min-width: 768px) {
+  .grid-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid-container {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.filepond--credits {
+  display: none;
+}
+
+/* Chat Widget Modern UI Enhancements */
+.chat-widget {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+}
+
+/* Custom scrollbar for chat */
+.chat-widget ::-webkit-scrollbar {
+  width: 6px;
+}
+
+.chat-widget ::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.chat-widget ::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 3px;
+}
+
+.chat-widget ::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+/* Custom scrollbar for chat sidebar */
+.chat-sidebar ::-webkit-scrollbar {
+  width: 8px;
+}
+
+.chat-sidebar ::-webkit-scrollbar-track {
+  background: #dbeafe;
+  border-radius: 4px;
+}
+
+.chat-sidebar ::-webkit-scrollbar-thumb {
+  background: #3b82f6;
+  border-radius: 4px;
+  border: 1px solid #1e40af;
+}
+
+.chat-sidebar ::-webkit-scrollbar-thumb:hover {
+  background: #2563eb;
+}
+
+.chat-sidebar ::-webkit-scrollbar-thumb:active {
+  background: #1d4ed8;
+}
+
+/* Desktop viewport optimization - Web version only */
+@media screen and (min-width: 769px) {
+  .chat-widget {
+    /* Reset mobile viewport units for desktop */
+    height: auto;
+    width: auto;
+    min-height: auto;
+    max-height: none;
+    
+    /* Remove mobile safe area padding */
+    padding: 0;
+  }
+  
+  /* Normal mode - fixed dimensions */
+  .chat-widget-normal {
+    height: 600px;
+    height: min(600px, 85vh);
+    min-height: 500px;
+    max-height: 85vh;
+    width: 600px;
+    width: min(600px, 85vw);
+    min-width: 400px;
+    max-width: 85vw;
+  }
+  
+  /* Fullscreen mode - full viewport */
+  .chat-widget-fullscreen {
+    height: 100vh;
+    width: 100vw;
+    min-height: 100vh;
+    min-width: 100vw;
+    max-height: none;
+    max-width: none;
+  }
+}
+
+/* Large screens (1025px-1280px) - Fixed dimensions with viewport fallback */
+@media screen and (min-width: 1025px) and (max-width: 1280px) {
+  .chat-widget-normal {
+    font-size: 14px;
+    /* Fixed height with intelligent viewport fallback */
+    height: 600px;
+    height: min(600px, 85vh);
+    min-height: 500px;
+    max-height: 85vh;
+    width: 600px;
+    width: min(600px, 85vw);
+    min-width: 400px;
+    max-width: 85vw;
+    
+    /* No safe area padding needed for desktop */
+    padding-bottom: 0;
+    padding-top: 0;
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
+/* Extra large screens (1281px-1536px) - Optimized for large displays */
+@media screen and (min-width: 1281px) and (max-width: 1536px) {
+  .chat-widget-normal {
+    font-size: 14px;
+    height: 700px;
+    height: min(700px, 80vh);
+    min-height: 600px;
+    max-height: 80vh;
+    width: 700px;
+    width: min(700px, 80vw);
+    min-width: 500px;
+    max-width: 80vw;
+    
+    /* No safe area padding needed for desktop */
+    padding-bottom: 0;
+    padding-top: 0;
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
+/* Ultra wide screens (≥1537px) - Maximum size optimization */
+@media screen and (min-width: 1537px) {
+  .chat-widget-normal {
+    font-size: 14px;
+    height: 800px;
+    height: min(800px, 75vh);
+    min-height: 700px;
+    max-height: 75vh;
+    width: 800px;
+    width: min(800px, 75vw);
+    min-width: 600px;
+    max-width: 75vw;
+    
+    /* No safe area padding for desktop */
+    padding-bottom: 0;
+    padding-top: 0;
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
+/* Animation enhancements */
+.chat-widget button {
+  transition: all 0.2s ease;
+}
+
+.chat-widget .hover\:scale-105:hover {
+  transform: scale(1.05);
+}
+
+.chat-widget .hover\:scale-110:hover {
+  transform: scale(1.1);
+}
+
+/* Focus states */
+.chat-widget input:focus,
+.chat-widget textarea:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgb(59 130 246);
+}
+
+/* Loading animation */
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.chat-widget .animate-spin {
+  animation: spin 1s linear infinite;
+}
