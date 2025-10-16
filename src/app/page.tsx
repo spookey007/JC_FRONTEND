@@ -177,7 +177,7 @@ export default function Home() {
                     ) : (
                       <>
                         <a
-                          href="https://t.co/nBJb6rNmlw"
+                          href="https://phantom.com/tokens/solana/5XChiQd7WHbk9SzsxSaCRstXE5WNpFB1VigAyCGCpump?timeFrame=YTD"
                           target="_blank"
                           rel="noopener noreferrer"
                           className="hover:underline"
